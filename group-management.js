@@ -207,7 +207,7 @@ function onInviteAddButton() {
         // This will separate all the emailids individually
        //syntax :group.invites.create({invitees: ['user1'], body: 'Please join my group'});
          group.invites.create({
-         invitees : [usersInvite],
+         invitees : usersInvite,
          body : $("#invite-add-body").val() 
          }).execute(onInviteAddResponse);
          

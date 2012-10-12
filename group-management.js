@@ -225,10 +225,8 @@ function getUsersFromResponse(response) {
   var users = [];
   if(response.data instanceof osapi.jive.core.User) {
     users.push(response.data);
- usersInvite.push(response.data);
   } else if (response.data instanceof Array) {
     users = response.data;
-	usersInvite = response.data;
   }
    return users;
   
@@ -251,7 +249,7 @@ var content = "";
     var user = users[i];
     content += user.email + " ";
      content += " ";
-     
+     usersInvite.push(user.email);
       //  var myString = content;
      //var mySplitResult = myString.split(" ");
              

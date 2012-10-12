@@ -44,6 +44,9 @@ var mini;
 // The viewing user
 var viewer;
 
+//Array for the users
+var usersInvite = [];
+
 // On-view-load initialization
 function init() {
     $(".toplevel").hide();
@@ -204,7 +207,7 @@ function onInviteAddButton() {
         // This will separate all the emailids individually
        //syntax :group.invites.create({invitees: ['user1'], body: 'Please join my group'});
          group.invites.create({
-         invitees : [$("#invite-add-username").val()],
+         invitees : [usersInvite],
          body : $("#invite-add-body").val() 
          }).execute(onInviteAddResponse);
          
@@ -222,8 +225,10 @@ function getUsersFromResponse(response) {
   var users = [];
   if(response.data instanceof osapi.jive.core.User) {
     users.push(response.data);
+ usersInvite.push(response.data);
   } else if (response.data instanceof Array) {
     users = response.data;
+	usersInvite = response.data;
   }
    return users;
   
@@ -271,7 +276,6 @@ gadgets.util.registerOnLoadHandler(function() {
     var callback = function(response) {
       var users = getUsersFromResponse(response);
       renderUserTable(users);
-     
     }
     osapi.jive.core.users.requestPicker({success: callback, multiple: isMultipleSelected()});
   });
@@ -757,4 +761,3 @@ function showOnly(name) {
 
 // Register our on-view-load handler
 gadgets.util.registerOnLoadHandler(init);
-
